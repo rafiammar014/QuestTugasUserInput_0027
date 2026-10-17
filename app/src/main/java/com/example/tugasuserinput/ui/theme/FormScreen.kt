@@ -252,3 +252,11 @@ fun BiodataScreen() {
             }
         }
     }
+
+    @Preview(showBackground = true)
+    @Composable
+    fun BiodataScreenPreview() {
+        TugasUserInputTheme {
+            BiodataScreen()
+        }
+    }
