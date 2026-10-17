@@ -57,6 +57,10 @@ fun BiodataScreen() {
         stringResource(R.string.exp_expert)
     )
 
+    var checkAndroid by remember { mutableStateOf(false) }
+    var checkUiUx by remember { mutableStateOf(false) }
+    var checkWeb by remember { mutableStateOf(false) }
+
     Scaffold { paddingValues ->
         Box(
             modifier = Modifier
@@ -193,7 +197,7 @@ fun BiodataScreen() {
                                     }
                                 }
                             }
-                        } // Penutup Row Tanggal Lahir & Dropdown
+                        }
                         Spacer(modifier = Modifier.height(16.dp))
                         }
                     }
