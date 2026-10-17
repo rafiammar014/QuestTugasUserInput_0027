@@ -16,8 +16,11 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.ExposedDropdownMenuAnchorType
 import androidx.compose.material3.ExposedDropdownMenuBox
+import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
@@ -178,7 +181,11 @@ fun BiodataScreen() {
                                     value = selectedExperience,
                                     onValueChange = { },
                                     label = { Text(stringResource(R.string.experience)) },
-                                    trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
+                                    trailingIcon = {
+                                        ExposedDropdownMenuDefaults.TrailingIcon(
+                                            expanded = expanded
+                                        )
+                                    },
                                     modifier = Modifier.menuAnchor(ExposedDropdownMenuAnchorType.PrimaryNotEditable),
                                     singleLine = true
                                 )
@@ -197,7 +204,6 @@ fun BiodataScreen() {
                                     }
                                 }
                             }
-                        }
                         Spacer(modifier = Modifier.height(16.dp))
 
                         Text(
@@ -206,6 +212,25 @@ fun BiodataScreen() {
                             fontSize = 14.sp,
                             modifier = Modifier.align(Alignment.Start)
                         )
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Checkbox(checked = checkAndroid, onCheckedChange = { checkAndroid = it })
+                                Text(text = stringResource(R.string.skill_android), fontSize = 12.sp)
+                            }
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Checkbox(checked = checkUiUx, onCheckedChange = { checkUiUx = it })
+                                Text(text = stringResource(R.string.skill_uiux), fontSize = 12.sp)
+                            }
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Checkbox(checked = checkWeb, onCheckedChange = { checkWeb = it })
+                                Text(text = stringResource(R.string.skill_web), fontSize = 12.sp)
+                            }
+                        }
+                        Spacer(modifier = Modifier.weight(1f))
                         }
                     }
                 }
