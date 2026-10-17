@@ -12,8 +12,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -38,11 +41,19 @@ import com.example.tugasuserinput.R
 @Composable
 fun BiodataScreen() {
 
-    // State variables untuk input
     var namaDepan by remember { mutableStateOf("") }
     var namaBelakang by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
     var tglLahir by remember { mutableStateOf("") }
+
+    var expanded by remember { mutableStateOf(false) }
+    var selectedExperience by remember { mutableStateOf("") }
+
+    val experienceOptions = listOf(
+        stringResource(R.string.exp_beginner),
+        stringResource(R.string.exp_intermediate),
+        stringResource(R.string.exp_expert)
+    )
 
     Scaffold { paddingValues ->
         Box(
@@ -116,6 +127,43 @@ fun BiodataScreen() {
                         singleLine = true
                     )
                     Spacer(modifier = Modifier.height(12.dp))
+
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        OutlinedTextField(
+                            value = tglLahir,
+                            onValueChange = { tglLahir = it },
+                            label = { Text(stringResource(R.string.birth_date)) },
+                            modifier = Modifier.weight(1f),
+                            trailingIcon = {
+                                Icon(
+                                    Icons.Default.DateRange,
+                                    contentDescription = null
+                                )
+                            },
+                            singleLine = true
+                        )
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.spacedBy(8.dp)
+                        ) {
+                            OutlinedTextField(
+                                value = tglLahir,
+                                onValueChange = { tglLahir = it },
+                                label = { Text(stringResource(R.string.birth_date)) },
+                                modifier = Modifier.weight(1f),
+                                trailingIcon = {
+                                    Icon(
+                                        Icons.Default.DateRange,
+                                        contentDescription = null
+                                    )
+                                },
+                                singleLine = true
+                            )
+                        }
+                    }
                 }
             }
         }
