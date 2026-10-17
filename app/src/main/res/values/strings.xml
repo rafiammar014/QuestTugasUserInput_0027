@@ -1,3 +1,15 @@
 <resources>
-    <string name="app_name">TugasUserInput</string>
+    <string name="app_name">Tugas User Input</string>
+    <string name="form_title">Form Biodata</string>
+    <string name="form_subtitle">Silahkan isi biodata Anda dibawah ini !!</string>
+    <string name="first_name">Nama Depan</string>
+    <string name="last_name">Nama Belakang</string>
+    <string name="email">Email</string>
+    <string name="birth_date">Tgl Lahir</string>
+    <string name="experience">Experience</string>
+    <string name="skills_title">Pilih Skill Anda :</string>
+    <string name="skill_android">Android</string>
+    <string name="skill_uiux">UI/UX</string>
+    <string name="skill_web">Web</string>
+    <string name="btn_proceed">Proceed</string>
 </resources>
