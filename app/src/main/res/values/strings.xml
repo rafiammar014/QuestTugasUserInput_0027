@@ -12,4 +12,7 @@
     <string name="skill_uiux">UI/UX</string>
     <string name="skill_web">Web</string>
     <string name="btn_proceed">Proceed</string>
+    <string name="exp_beginner">Beginner</string>
+    <string name="exp_intermediate">Intermediate</string>
+    <string name="exp_expert">Expert</string>
 </resources>
