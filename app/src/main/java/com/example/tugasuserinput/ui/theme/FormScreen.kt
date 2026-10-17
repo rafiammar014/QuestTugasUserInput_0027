@@ -12,13 +12,18 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.tugasuserinput.R
 
 @Composable
@@ -54,7 +59,18 @@ fun BiodataScreen() {
                         .fillMaxSize(),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-
+                    Text(
+                        text = stringResource(id = R.string.form_title),
+                        fontSize = 24.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = colorResource(id = R.color.purple_title)
+                    )
+                    Text(
+                        text = stringResource(id = R.string.form_subtitle),
+                        fontSize = 12.sp,
+                        color = colorResource(id = R.color.gray_subtitle),
+                        modifier = Modifier.padding(bottom = 24.dp, top = 4.dp)
+                    )
                 }
             }
         }
