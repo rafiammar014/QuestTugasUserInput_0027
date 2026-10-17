@@ -1,37 +1,12 @@
 package com.example.tugasuserinput.ui.theme
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Checkbox
-import androidx.compose.material3.DropdownMenuItem
-import androidx.compose.material3.ExposedDropdownMenuAnchorType
-import androidx.compose.material3.ExposedDropdownMenuBox
-import androidx.compose.material3.ExposedDropdownMenuDefaults
-import androidx.compose.material3.Icon
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -40,11 +15,12 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.tugasuserinput.R
 
-
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BiodataScreen() {
 
@@ -53,8 +29,10 @@ fun BiodataScreen() {
     var email by remember { mutableStateOf("") }
     var tglLahir by remember { mutableStateOf("") }
 
+
     var expanded by remember { mutableStateOf(false) }
     var selectedExperience by remember { mutableStateOf("") }
+
 
     val experienceOptions = listOf(
         stringResource(R.string.exp_beginner),
@@ -62,6 +40,7 @@ fun BiodataScreen() {
         stringResource(R.string.exp_expert)
     )
 
+    // State untuk checkbox
     var checkAndroid by remember { mutableStateOf(false) }
     var checkUiUx by remember { mutableStateOf(false) }
     var checkWeb by remember { mutableStateOf(false) }
@@ -72,6 +51,7 @@ fun BiodataScreen() {
                 .fillMaxSize()
                 .padding(paddingValues)
         ) {
+
             Image(
                 painter = painterResource(id = R.drawable.background),
                 contentDescription = null,
@@ -81,6 +61,7 @@ fun BiodataScreen() {
                     .fillMaxHeight(0.45f)
                     .align(Alignment.TopCenter)
             )
+
 
             Card(
                 modifier = Modifier
@@ -97,6 +78,7 @@ fun BiodataScreen() {
                         .fillMaxSize(),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
+
                     Text(
                         text = stringResource(id = R.string.form_title),
                         fontSize = 24.sp,
@@ -109,6 +91,8 @@ fun BiodataScreen() {
                         color = colorResource(id = R.color.gray_subtitle),
                         modifier = Modifier.padding(bottom = 24.dp, top = 4.dp)
                     )
+
+
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.spacedBy(8.dp)
@@ -128,8 +112,10 @@ fun BiodataScreen() {
                             singleLine = true
                         )
                     }
+
                     Spacer(modifier = Modifier.height(12.dp))
 
+                    // Email
                     OutlinedTextField(
                         value = email,
                         onValueChange = { email = it },
@@ -137,7 +123,9 @@ fun BiodataScreen() {
                         modifier = Modifier.fillMaxWidth(),
                         singleLine = true
                     )
+
                     Spacer(modifier = Modifier.height(12.dp))
+
 
                     Row(
                         modifier = Modifier.fillMaxWidth(),
@@ -148,115 +136,98 @@ fun BiodataScreen() {
                             onValueChange = { tglLahir = it },
                             label = { Text(stringResource(R.string.birth_date)) },
                             modifier = Modifier.weight(1f),
-                            trailingIcon = {
-                                Icon(
-                                    Icons.Default.DateRange,
-                                    contentDescription = null
-                                )
-                            },
+                            trailingIcon = { Icon(Icons.Default.DateRange, contentDescription = null) },
                             singleLine = true
                         )
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.spacedBy(8.dp)
+
+
+                        ExposedDropdownMenuBox(
+                            expanded = expanded,
+                            onExpandedChange = { expanded = !expanded },
+                            modifier = Modifier.weight(1f)
                         ) {
                             OutlinedTextField(
-                                value = tglLahir,
-                                onValueChange = { tglLahir = it },
-                                label = { Text(stringResource(R.string.birth_date)) },
-                                modifier = Modifier.weight(1f),
+                                readOnly = true,
+                                value = selectedExperience,
+                                onValueChange = { },
+                                label = { Text(stringResource(R.string.experience)) },
                                 trailingIcon = {
-                                    Icon(
-                                        Icons.Default.DateRange,
-                                        contentDescription = null
-                                    )
+                                    ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)
                                 },
+                                modifier = Modifier.menuAnchor(ExposedDropdownMenuAnchorType.PrimaryNotEditable),
                                 singleLine = true
                             )
-                            ExposedDropdownMenuBox(
+                            ExposedDropdownMenu(
                                 expanded = expanded,
-                                onExpandedChange = { expanded = !expanded },
-                                modifier = Modifier.weight(1f)
+                                onDismissRequest = { expanded = false }
                             ) {
-                                OutlinedTextField(
-                                    readOnly = true,
-                                    value = selectedExperience,
-                                    onValueChange = { },
-                                    label = { Text(stringResource(R.string.experience)) },
-                                    trailingIcon = {
-                                        ExposedDropdownMenuDefaults.TrailingIcon(
-                                            expanded = expanded
-                                        )
-                                    },
-                                    modifier = Modifier.menuAnchor(ExposedDropdownMenuAnchorType.PrimaryNotEditable),
-                                    singleLine = true
-                                )
-                                ExposedDropdownMenu(
-                                    expanded = expanded,
-                                    onDismissRequest = { expanded = false }
-                                ) {
-                                    experienceOptions.forEach { selectionOption ->
-                                        DropdownMenuItem(
-                                            text = { Text(selectionOption) },
-                                            onClick = {
-                                                selectedExperience = selectionOption
-                                                expanded = false
-                                            }
-                                        )
-                                    }
+                                experienceOptions.forEach { selectionOption ->
+                                    DropdownMenuItem(
+                                        text = { Text(selectionOption) },
+                                        onClick = {
+                                            selectedExperience = selectionOption
+                                            expanded = false
+                                        }
+                                    )
                                 }
                             }
-                        Spacer(modifier = Modifier.height(16.dp))
+                        }
+                    }
 
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    Text(
+                        text = stringResource(R.string.skills_title),
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 14.sp,
+                        modifier = Modifier.align(Alignment.Start)
+                    )
+
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Checkbox(checked = checkAndroid, onCheckedChange = { checkAndroid = it })
+                            Text(text = stringResource(R.string.skill_android), fontSize = 12.sp)
+                        }
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Checkbox(checked = checkUiUx, onCheckedChange = { checkUiUx = it })
+                            Text(text = stringResource(R.string.skill_uiux), fontSize = 12.sp)
+                        }
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Checkbox(checked = checkWeb, onCheckedChange = { checkWeb = it })
+                            Text(text = stringResource(R.string.skill_web), fontSize = 12.sp)
+                        }
+                    }
+
+                    Spacer(modifier = Modifier.weight(1f))
+
+                    // Tombol Proceed
+                    Button(
+                        onClick = { /* Handle Proceed */ },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(50.dp),
+                        colors = ButtonDefaults.buttonColors(containerColor = Color.LightGray)
+                    ) {
                         Text(
-                            text = stringResource(R.string.skills_title),
-                            fontWeight = FontWeight.Bold,
-                            fontSize = 14.sp,
-                            modifier = Modifier.align(Alignment.Start)
+                            text = stringResource(R.string.btn_proceed),
+                            color = Color.White,
+                            fontWeight = FontWeight.Bold
                         )
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.SpaceBetween,
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Row(verticalAlignment = Alignment.CenterVertically) {
-                                Checkbox(checked = checkAndroid, onCheckedChange = { checkAndroid = it })
-                                Text(text = stringResource(R.string.skill_android), fontSize = 12.sp)
-                            }
-                            Row(verticalAlignment = Alignment.CenterVertically) {
-                                Checkbox(checked = checkUiUx, onCheckedChange = { checkUiUx = it })
-                                Text(text = stringResource(R.string.skill_uiux), fontSize = 12.sp)
-                            }
-                            Row(verticalAlignment = Alignment.CenterVertically) {
-                                Checkbox(checked = checkWeb, onCheckedChange = { checkWeb = it })
-                                Text(text = stringResource(R.string.skill_web), fontSize = 12.sp)
-                            }
-                        }
-                        Spacer(modifier = Modifier.weight(1f))
-                            Button(
-                                onClick = { /* Handle Proceed */ },
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .height(50.dp),
-                                colors = ButtonDefaults.buttonColors(containerColor = Color.LightGray)
-                            ) {
-                                Text(
-                                    text = stringResource(R.string.btn_proceed),
-                                    color = Color.White,
-                                    fontWeight = FontWeight.Bold
-                                )
-                            }
-                        }
                     }
                 }
             }
         }
     }
+}
 
-    @Preview(showBackground = true)
-    @Composable
-    fun BiodataScreenPreview() {
-        TugasUserInputTheme {
-            BiodataScreen()
-        }
+@Preview(showBackground = true)
+@Composable
+fun BiodataScreenPreview() {
+    TugasUserInputTheme {
+        BiodataScreen()
     }
+}
